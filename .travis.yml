@@ -7,7 +7,7 @@ jdk:
   - oraclejdk8
 
 install: true
-script: sh ./build.sh
+script: if [[ "$TRAVIS_BRANCH" == "master" ]]; then ./gradlew build uploadArchives; else ./gradlew build; fi
 
 before_cache:
   - rm -rf $HOME/.gradle/caches/modules-2/modules-2.lock
