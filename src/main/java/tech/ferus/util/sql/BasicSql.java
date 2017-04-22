@@ -31,14 +31,13 @@ import org.slf4j.LoggerFactory;
 /**
  * A utility class meant to make use of the tools provided in BasicSql.
  *
- * <p>Check out the following classes for more details:
+ * <p>Check out the following classes for more details:</p>
  * <ul>
  *     <li>{@link Database}</li>
  *     <li>{@link HandleResults}</li>
  *     <li>{@link Preparer}</li>
  *     <li>{@link ReturnResults}</li>
  * </ul>
- * </p>
  */
 public final class BasicSql {
 
