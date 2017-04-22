@@ -4,6 +4,13 @@ plugins {
     id 'signing'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
+if (System.hasProperty("SIGN_ID")) {
+    project.setProperty("signing.keyId", System.getenv("SIGN_ID"))
+    project.setProperty("signing.password", System.getenv("SIGN_PASS"))
+    project.setProperty("signing.secretKeyRingFile", "secring.gpg")
+    project.setProperty("sonatypeUsername", System.getenv("SON_USR"))
+    project.setProperty("sonatypePassword", System.getenv("SON_PAS"))
+}
 
 ext {
     gitHash = getGitHash()
@@ -16,7 +23,7 @@ private static String getGitHash() {
 }
 
 group 'tech.ferus.util'
-version = '1.0.0'
+version = '1.0.1-SNAPSHOT'
 archivesBaseName = "BasicSql"
 
 sourceCompatibility = 1.8
@@ -93,9 +100,8 @@ build {
     shadowJar.mustRunAfter sourcesJar
 }
 
-/*
 signing {
-    required { gradle.taskGraph.hasTask("uploadArchives") }
+    required { System.hasProperty("SIGN_ID") && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
@@ -108,6 +114,10 @@ uploadArchives {
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
                 authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: sonatypeUsername, password:sonatypePassword)
             }
 
             pom.project {
@@ -140,4 +150,3 @@ uploadArchives {
         }
     }
 }
-*/
