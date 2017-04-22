@@ -4,7 +4,7 @@ plugins {
     id 'signing'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
-if (System.hasProperty("SIGN_ID")) {
+if (System.getenv("SIGN_ID")) {
     project.setProperty("signing.keyId", System.getenv("SIGN_ID"))
     project.setProperty("signing.password", System.getenv("SIGN_PASS"))
     project.setProperty("signing.secretKeyRingFile", "secring.gpg")
@@ -101,7 +101,7 @@ build {
 }
 
 signing {
-    required { System.hasProperty("SIGN_ID") && gradle.taskGraph.hasTask("uploadArchives") }
+    required { System.getenv("SIGN_ID") && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
