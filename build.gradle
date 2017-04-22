@@ -12,9 +12,9 @@ if (System.getenv("SIGN_ID")) {
     sonatypeUsername = System.getenv("SON_USR")
     sonatypePassword = System.getenv("SON_PAS")
 
-    signArchives.setProperty("signing.keyId", System.getenv("SIGN_ID"))
-    signArchives.setProperty("signing.password", System.getenv("SIGN_PASS"))
-    signArchives.setProperty("signing.secretKeyRingFile", "secring.gpg")
+    project.setProperty("signing.keyId", System.getenv("SIGN_ID"))
+    project.setProperty("signing.password", System.getenv("SIGN_PASS"))
+    project.setProperty("signing.secretKeyRingFile", "secring.gpg")
 }
 
 ext {
