@@ -14,7 +14,6 @@ if (System.getenv("SIGN_ID")) {
 
     project.setProperty("signing.keyId", System.getenv("SIGN_ID"))
     project.setProperty("signing.password", System.getenv("SIGN_PASS"))
-    project.setProperty("signing.secretKeyRingFile", "secring.gpg")
 }
 
 ext {
