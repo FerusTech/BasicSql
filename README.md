@@ -34,7 +34,7 @@ public static int getAgeOf(final String user) {
 (Coming soon...)
 
 ## Javadocs
-(Coming soon...)
+Can be located [here](https://ferustech.github.io/BasicSql/).
 
 ## Dependencies
 BasicSql _requires_ **Java 8**.
