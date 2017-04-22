@@ -17,21 +17,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.ferus.util.sql;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 /**
- * Prepares a statement to be executed or queried.
+ * Root package for BasicSql.
+ *
+ * <p>Special interfaces:
+ * <ul>
+ *     <li>{@link tech.ferus.util.sql.HandleResults}</li>
+ *     <li>{@link tech.ferus.util.sql.Preparer}</li>
+ *     <li>{@link tech.ferus.util.sql.ReturnResults}</li>
+ * </ul>
  */
-public interface Preparer {
-
-    /**
-     * Determines what data to impart to a statement.
-     *
-     * @param s the statement that is to be modified
-     * @throws SQLException if there is an exception during the connection or in syntax
-     */
-    void prepare(final PreparedStatement s) throws SQLException;
-}
+package tech.ferus.util.sql;
