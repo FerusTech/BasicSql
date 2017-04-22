@@ -27,7 +27,7 @@ private static String getGitHash() {
 }
 
 group 'tech.ferus.util'
-version = '1.0.1-SNAPSHOT'
+version = '1.0.1'
 archivesBaseName = "BasicSql"
 
 sourceCompatibility = 1.8
