@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'maven'
-    id 'maven-publish'
+    id 'signing'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
@@ -16,7 +16,7 @@ private static String getGitHash() {
 }
 
 group 'tech.ferus.util'
-version = '1.0-SNAPSHOT-' + gitHash
+version = '1.0.0'
 archivesBaseName = "BasicSql"
 
 sourceCompatibility = 1.8
@@ -92,3 +92,52 @@ build {
     sourcesJar.mustRunAfter javadocJar
     shadowJar.mustRunAfter sourcesJar
 }
+
+/*
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment {
+                MavenDeployment deployment -> signing.signPom(deployment)
+            }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name 'BasicSql'
+                packaging 'jar'
+                description 'BasicSql wraps existing SQL utilities provided by Java and mchange to reduce repetitive task work.'
+                url 'https://ferustech.github.com'
+
+                scm {
+                    url 'scm:git@github.com:FerusTech/BasicSql.git'
+                    connection 'scm:git@github.com:FerusTech/BasicSql.git'
+                    developerConnection 'scm:git@github.com:FerusTech/BasicSql.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The MIT License'
+                        url 'https://opensource.org/licenses/MIT'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'FerusGrim'
+                        name 'Nicholas Badger'
+                    }
+                }
+            }
+        }
+    }
+}
+*/
