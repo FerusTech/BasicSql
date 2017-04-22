@@ -4,12 +4,17 @@ plugins {
     id 'signing'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
+
+def sonatypeUsername = ""
+def sonatypePassword = ""
+
 if (System.getenv("SIGN_ID")) {
-    project.properties.put("signing.keyId", System.getenv("SIGN_ID"))
-    project.properties.put("signing.password", System.getenv("SIGN_PASS"))
-    project.properties.put("signing.secretKeyRingFile", "secring.gpg")
-    project.properties.put("sonatypeUsername", System.getenv("SON_USR"))
-    project.properties.put("sonatypePassword", System.getenv("SON_PAS"))
+    sonatypeUsername = System.getenv("SON_USR")
+    sonatypePassword = System.getenv("SON_PAS")
+
+    signArchives.setProperty("signing.keyId", System.getenv("SIGN_ID"))
+    signArchives.setProperty("signing.password", System.getenv("SIGN_PASS"))
+    signArchives.setProperty("signing.secretKeyRingFile", "secring.gpg")
 }
 
 ext {
