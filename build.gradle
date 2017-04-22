@@ -5,11 +5,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 if (System.getenv("SIGN_ID")) {
-    project.setProperty("signing.keyId", System.getenv("SIGN_ID"))
-    project.setProperty("signing.password", System.getenv("SIGN_PASS"))
-    project.setProperty("signing.secretKeyRingFile", "secring.gpg")
-    project.setProperty("sonatypeUsername", System.getenv("SON_USR"))
-    project.setProperty("sonatypePassword", System.getenv("SON_PAS"))
+    project.properties.put("signing.keyId", System.getenv("SIGN_ID"))
+    project.properties.put("signing.password", System.getenv("SIGN_PASS"))
+    project.properties.put("signing.secretKeyRingFile", "secring.gpg")
+    project.properties.put("sonatypeUsername", System.getenv("SON_USR"))
+    project.properties.put("sonatypePassword", System.getenv("SON_PAS"))
 }
 
 ext {
