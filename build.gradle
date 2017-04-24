@@ -34,7 +34,7 @@ apply plugin: "signing"
 apply plugin: "com.github.johnrengelman.shadow"
 
 group "tech.ferus.util"
-version = "1.0.2"
+version = "1.0.3-SNAPSHOT"
 description = "BasicSql wraps existing SQL utilities provided by Java and mchange to reduce repetitive task work."
 archivesBaseName = "BasicSql"
 

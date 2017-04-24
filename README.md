@@ -1,4 +1,4 @@
-# BasicSql
+# BasicSql [![Build Status](https://img.shields.io/travis/FerusTech/BasicSql.svg)](https://travis-ci.org/FerusTech/BasicSql)
 A utility for easily managing queries and executions to your database.
 
 ## Using BasicSql
@@ -31,7 +31,29 @@ public static int getAgeOf(final String user) {
 ```
 
 ## Download
-(Coming soon...)
+Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/tech.ferus.util/BasicSql.svg)]()
+
+Replace **VERSION** with version shown in button above.
+
+**Maven**
+```xml
+<dependency>
+    <groupId>tech.ferus.util</groupId>
+    <artifactId>BasicSql</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
+
+**Gradle**
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'tech.ferus.util:BasicSql:VERSION'
+}
+```
 
 ## Javadocs
 Can be located [here](https://ferustech.github.io/BasicSql/).
