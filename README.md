@@ -23,7 +23,7 @@ private static final Database DATABASE = new Database(
 private static final int DEFAULT_AGE = 18;
 
 public static int getAgeOf(final String user) {
-    return BasicSql.returnQuery(DATABASE, "", 
+    return BasicSql.returnQuery(DATABASE, "SELECT * FROM user_data WHERE user_id=?", 
             s -> s.setString(1, user), 
             r -> r.next() ? r.getInt("age") : DEFAULT_AGE)
             .orElse(DEFAULT_AGE);
