@@ -12,7 +12,7 @@ public static void executeString(final String sql) {
 
 To a much more familiar (though, less repetitive) usage:
 ```java
-private static final Database DATABASE = new Database(
+private static final MySqlDatabase DATABASE = new MySqlDatabase(
         "localhost", 
         3306, 
         "users", 
@@ -27,6 +27,17 @@ public static int getAgeOf(final String user) {
             s -> s.setString(1, user), 
             r -> r.next() ? r.getInt("age") : DEFAULT_AGE)
             .orElse(DEFAULT_AGE);
+}
+```
+
+After creating a database object, you can assign it as the default, for future usage.
+```java
+public static void executeString(final String sql) {
+    if (!Database.isDefaultDatabaseSet()) {
+        Database.setDefaultDatabase(DATABASE);
+    }
+
+    BasicSql.execute(sql);
 }
 ```
 
