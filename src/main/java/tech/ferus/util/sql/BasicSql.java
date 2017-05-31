@@ -27,6 +27,7 @@ import java.sql.Statement;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.ferus.util.sql.databases.Database;
 
 /**
  * A utility class meant to make use of the tools provided in BasicSql.

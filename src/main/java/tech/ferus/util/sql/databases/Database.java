@@ -17,9 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.ferus.util.sql;
+package tech.ferus.util.sql.databases;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -29,12 +30,17 @@ import javax.annotation.Nullable;
 /**
  * A simple {@link Connection} getter for c3p0.
  */
-public class Database {
+public abstract class Database {
 
     /**
      * The default database, to be set by utilizing developers.
      */
     @Nullable private static Database defaultDatabase = null;
+
+    /**
+     * The protocol this database is using.
+     */
+    @Nonnull private final Protocol protocol;
 
     /**
      * The generated Source.
@@ -44,24 +50,21 @@ public class Database {
     /**
      * Constructs a new {@link Database}.
      *
-     * @param host the url or IP Address to which the host is located
-     * @param port the port that's used to access the server
-     * @param database the name of the accessing database
-     * @param username the name of an active user on the server
-     * @param password the password for the active user
+     * @param protocol The type of {@link Database} being constructed
      */
-    public Database(final String host,
-                    final int port,
-                    final String database,
-                    final String username,
-                    final String password) {
+    public Database(@Nonnull final Protocol protocol) {
+        this.protocol = protocol;
         this.source = new ComboPooledDataSource();
+        this.configure(this.source);
+    }
 
-        this.source.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database +
-                "?autoReconnect=true&useSSL=false&rewriteBatchedStatements=true");
-
-        this.source.setUser(username);
-        this.source.setPassword(password);
+    /**
+     * Gets the protocol this database is using.
+     *
+     * @return the protocol this database is using
+     */
+    @Nonnull public Protocol getProtocol() {
+        return this.protocol;
     }
 
     /**
@@ -73,6 +76,13 @@ public class Database {
     public Connection getConnection() throws SQLException {
         return this.source.getConnection();
     }
+
+    /**
+     * Configures the {@link ComboPooledDataSource}.
+     *
+     * @param source the {@link ComboPooledDataSource} to configure
+     */
+    protected abstract void configure(@Nonnull final ComboPooledDataSource source);
 
     /**
      * Gets the connection that has been configured by the default {@link Database}.
