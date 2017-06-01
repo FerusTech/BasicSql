@@ -6,7 +6,7 @@ A utility for easily managing queries and executions to your database.
 View [Usage Examples](https://github.com/FerusTech/BasicSql/blob/master/basicsql-examples/src/main/java/tech/ferus/util/sql/examples/UsageExamples.java).
 
 ## Download
-Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/tech.ferus.util/BasicSql.svg)]()
+Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/tech.ferus.util/basicsql-api.svg)]()
 
 Replace **TYPE** with `api`, `core`, `h2`, `mysql` or `sqlite`.
 
