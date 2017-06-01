@@ -27,137 +27,141 @@ gradle.taskGraph.whenReady { taskGraph ->
     }
 }
 
-apply plugin: "java"
-apply plugin: "idea"
-apply plugin: "maven"
-apply plugin: "signing"
-apply plugin: "com.github.johnrengelman.shadow"
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven"
+    apply plugin: "com.github.johnrengelman.shadow"
+    apply plugin: "signing"
 
-group "tech.ferus.util"
-version = "1.1.2-SNAPSHOT"
-description = "BasicSql wraps existing SQL utilities provided by Java and mchange to reduce repetitive task work."
-archivesBaseName = "BasicSql"
+    group "tech.ferus.util"
+    version = "2.0.0-SNAPSHOT"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile "org.slf4j:slf4j-api:1.7.21"
-    compile "com.google.code.findbugs:jsr305:3.0.2"
-    compile "mysql:mysql-connector-java:6.0.5"
-    compile "com.mchange:c3p0:0.9.5.2"
-    compile "org.xerial:sqlite-jdbc:3.18.0"
-}
-
-compileJava {
-    options.encoding = 'UTF-8'
-}
-
-jar {
-    manifest {
-        attributes(
-                'Implementation-Title': project.name,
-                'Implementation-Version': version,
-                'Build-Version': gitHash
-        )
-    }
-}
-
-shadowJar {
-    classifier = "shaded"
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-javadoc {
-    failOnError = false
-    source = sourceSets.main.allJava
-    classpath = configurations.compile
-    options.memberLevel = JavadocMemberLevel.PRIVATE
-}
-
-artifacts {
-    archives jar
-    archives sourcesJar
-    archives javadocJar
-    archives shadowJar
-}
-
-signing {
-    required { doSigning }
-    sign configurations.archives
-}
-
-
-uploadArchives {
     repositories {
-        mavenDeployer {
-            beforeDeployment {
-                MavenDeployment deployment -> signing.signPom(deployment)
-            }
+        mavenCentral()
+    }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-                authentication(userName: uploadUsername, password: uploadPassword)
-            }
+    compileJava {
+        options.encoding = 'UTF-8'
+    }
 
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                authentication(userName: uploadUsername, password: uploadPassword)
-            }
+    jar {
+        manifest {
+            attributes(
+                    'Implementation-Title': project.name,
+                    'Implementation-Version': version,
+                    'Build-Version': gitHash
+            )
+        }
+    }
 
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description project.description
-                url 'https://github.com/ferustech'
+    shadowJar {
+        classifier = "shaded"
+    }
 
-                scm {
-                    url 'scm:git@github.com:FerusTech/BasicSql.git'
-                    connection 'scm:git@github.com:FerusTech/BasicSql.git'
-                    developerConnection 'scm:git@github.com:FerusTech/BasicSql.git'
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    tasks.withType(Jar) {
+        buildDir = file("$rootDir/build")
+    }
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+        archives shadowJar
+    }
+
+    signing {
+        required { doSigning }
+        sign configurations.archives
+    }
+
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment {
+                    MavenDeployment deployment -> signing.signPom(deployment)
                 }
 
-                licenses {
-                    license {
-                        name 'The MIT License'
-                        url 'https://opensource.org/licenses/MIT'
-                        distribution 'repo'
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                    authentication(userName: uploadUsername, password: uploadPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                    authentication(userName: uploadUsername, password: uploadPassword)
+                }
+
+                pom.project {
+                    name project.name
+                    packaging 'jar'
+                    description project.description
+                    url 'https://github.com/ferustech'
+
+                    scm {
+                        url 'scm:git@github.com:FerusTech/BasicSql.git'
+                        connection 'scm:git@github.com:FerusTech/BasicSql.git'
+                        developerConnection 'scm:git@github.com:FerusTech/BasicSql.git'
                     }
-                }
 
-                developers {
-                    developer {
-                        id 'FerusGrim'
-                        name 'Nicholas Badger'
+                    licenses {
+                        license {
+                            name 'The MIT License'
+                            url 'https://opensource.org/licenses/MIT'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'FerusGrim'
+                            name 'Nicholas Badger'
+                        }
                     }
                 }
             }
         }
     }
+
+    build {
+        dependsOn jar
+        dependsOn javadocJar
+        dependsOn sourcesJar
+
+        jar.mustRunAfter clean
+        javadocJar.mustRunAfter jar
+        sourcesJar.mustRunAfter javadocJar
+        shadowJar.mustRunAfter sourcesJar
+    }
 }
 
-build {
-    dependsOn jar
-    dependsOn javadocJar
-    dependsOn sourcesJar
+def exportedProjects = [
+        ":basicsql-api",
+        ":basicsql-core",
+        ":basicsql-mysql",
+        ":basicsql-h2",
+        ":basicsql-sqlite"
+]
 
-    jar.mustRunAfter clean
-    javadocJar.mustRunAfter jar
-    sourcesJar.mustRunAfter javadocJar
-    shadowJar.mustRunAfter sourcesJar
+task alljavadoc(type: Javadoc) {
+    failOnError = false
+    source = exportedProjects.collect { project(it).sourceSets.main.allJava }
+    classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    destinationDir = file("${buildDir}/docs/javadoc")
 }
-
 
 private static String getGitHash() {
     def process = "git rev-parse --short HEAD".execute()

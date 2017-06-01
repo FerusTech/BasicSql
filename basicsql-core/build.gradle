@@ -1,0 +1,9 @@
+archivesBaseName = "basicsql-core"
+description = "BasicSql core implementation."
+
+dependencies {
+    compile project(":basicsql-api")
+
+    compile "org.slf4j:slf4j-api:1.7.21"
+    compile "com.mchange:c3p0:0.9.5.2"
+}

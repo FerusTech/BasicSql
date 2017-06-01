@@ -1,1 +1,5 @@
-rootProject.name = 'BasicSql'
+include 'basicsql-api'
+include 'basicsql-core'
+include 'basicsql-mysql'
+include 'basicsql-sqlite'
+include 'basicsql-h2'

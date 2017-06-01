@@ -1,0 +1,8 @@
+archivesBaseName = "basicsql-h2"
+description = "BasicSql implementation for H2."
+
+dependencies {
+    compile project(":basicsql-core")
+
+    compile "com.h2database:h2:1.4.195"
+}

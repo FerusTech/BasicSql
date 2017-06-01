@@ -1,2 +1,5 @@
-tech.ferus.util.sql
-tech.ferus.util.sql.databases
+tech.ferus.util.sql.api
+tech.ferus.util.sql.core
+tech.ferus.util.sql.h2
+tech.ferus.util.sql.mysql
+tech.ferus.util.sql.sqlite

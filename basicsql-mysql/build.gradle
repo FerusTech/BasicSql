@@ -1,0 +1,8 @@
+archivesBaseName = "basicsql-mysql"
+description = "BasicSql implementation for MySQL."
+
+dependencies {
+    compile project(":basicsql-core")
+
+    compile "mysql:mysql-connector-java:6.0.5"
+}

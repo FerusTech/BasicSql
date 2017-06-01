@@ -1,0 +1,8 @@
+archivesBaseName = "basicsql-sqlite"
+description = "BasicSql implementation for SQLite."
+
+dependencies {
+    compile project(":basicsql-core")
+
+    compile "org.xerial:sqlite-jdbc:3.18.0"
+}
