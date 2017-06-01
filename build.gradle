@@ -22,7 +22,7 @@ gradle.taskGraph.whenReady { taskGraph ->
         uploadPassword = ""
 
         project.ext."signing.keyId" = System.getenv("SIGN_ID") ? System.getenv("SIGN_ID") : "Not_Configured"
-        project.ext."signing.secretKeyRingFile" = "secring.gpg"
+        project.ext."signing.secretKeyRingFile" = "../secring.gpg"
         project.ext."signing.password" = System.getenv("SIGN_PASS") ? System.getenv("SIGN_PASS") : "Not_Configured"
     }
 }
