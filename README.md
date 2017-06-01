@@ -3,46 +3,12 @@ A utility for easily managing queries and executions to your database.
 
 ## Using BasicSql
 
-BasicSql can range from exceedingly simplistic usage...
-```java
-public static void executeString(final String sql) {
-    BasicSql.execute(sql);
-}
-```
-
-To a much more familiar (though, less repetitive) usage:
-```java
-private static final MySqlDatabase DATABASE = new MySqlDatabase(
-        "localhost", 
-        3306, 
-        "users", 
-        "sql-admin", 
-        "secret-password"
-);
-
-private static final int DEFAULT_AGE = 18;
-
-public static int getAgeOf(final String user) {
-    return BasicSql.returnQuery(DATABASE, "SELECT * FROM user_data WHERE user_id=?", 
-            s -> s.setString(1, user), 
-            r -> r.next() ? r.getInt("age") : DEFAULT_AGE)
-            .orElse(DEFAULT_AGE);
-}
-```
-
-After creating a database object, you can assign it as the default, for future usage.
-```java
-public static void executeString(final String sql) {
-    if (!Database.isDefaultDatabaseSet()) {
-        Database.setDefaultDatabase(DATABASE);
-    }
-
-    BasicSql.execute(sql);
-}
-```
+View [Usage Examples](https://github.com/FerusTech/BasicSql/blob/master/basicsql-examples/src/main/java/tech/ferus/util/sql/examples/UsageExamples.java).
 
 ## Download
 Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/tech.ferus.util/BasicSql.svg)]()
+
+Replace **TYPE** with `api`, `core`, `h2`, `mysql` or `sqlite`.
 
 Replace **VERSION** with version shown in button above.
 
@@ -50,7 +16,7 @@ Replace **VERSION** with version shown in button above.
 ```xml
 <dependency>
     <groupId>tech.ferus.util</groupId>
-    <artifactId>BasicSql</artifactId>
+    <artifactId>basicsql-TYPE</artifactId>
     <version>VERSION</version>
 </dependency>
 ```
@@ -62,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile 'tech.ferus.util:BasicSql:VERSION'
+    compile 'tech.ferus.util:basicsql-TYPE:VERSION'
 }
 ```
 
@@ -79,4 +45,6 @@ Dependencies are managed automatically via Gradle. For a detailed list, view bel
 | SLF4J-API | 1.7.21 | https://www.slf4j.org/ | https://github.com/qos-ch/slf4j |
 | FindBugs | 3.0.2 | http://findbugs.sourceforge.net/ | https://github.com/findbugsproject/findbugs |
 | Connector/J | 6.0.5 | https://www.mysql.com/products/connector/ | https://dev.mysql.com/downloads/connector/j/5.1.html |
+| SQLite-JDBC | 3.18.0 | https://bitbucket.org/xerial/sqlite-jdbc | https://bitbucket.org/xerial/sqlite-jdbc |
+| H2 | 1.4.195 | http://www.h2database.com | https://github.com/h2database/h2database |
 | C3P0 | 0.9.5.2 | http://www.mchange.com/projects/c3p0/ | https://github.com/swaldman/c3p0 |
