@@ -55,6 +55,8 @@ public class SqliteDatabase extends BasicDatabase {
         super("sqlite");
 
         this.path = path;
+
+        this.configure();
     }
 
     /**

@@ -66,6 +66,8 @@ public class H2Database extends BasicDatabase {
 
         this.path = path;
         this.memory = false;
+
+        this.configure();
     }
 
     /**
@@ -79,6 +81,8 @@ public class H2Database extends BasicDatabase {
 
         this.path = path;
         this.memory = memory;
+
+        this.configure();
     }
 
     /**

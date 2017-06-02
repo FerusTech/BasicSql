@@ -80,6 +80,8 @@ public class MySqlDatabase extends BasicDatabase {
         this.database = database;
         this.username = username;
         this.password = password;
+
+        this.configure();
     }
 
     @Override

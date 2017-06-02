@@ -44,11 +44,6 @@ public abstract class BasicDatabase implements Database {
     @Nonnull private final ComboPooledDataSource dataSource;
 
     /**
-     * Whether or not this database has been configured.
-     */
-    private boolean configured = false;
-
-    /**
      * Constructs a new {@link Database}.
      *
      * @param protocol The type of {@link Database} being constructed
@@ -67,11 +62,6 @@ public abstract class BasicDatabase implements Database {
     @Nonnull
     @Override
     public ComboPooledDataSource getDataSource() {
-        if (!this.configured) {
-            this.configure();
-            this.configured = true;
-        }
-
         return this.dataSource;
     }
 
@@ -83,10 +73,5 @@ public abstract class BasicDatabase implements Database {
     @Override
     public boolean isDefaultDatabase() {
         return DefaultDatabase.isDefaultDatabase(this);
-    }
-
-    @Override
-    public boolean isConfigured() {
-        return this.configured;
     }
 }

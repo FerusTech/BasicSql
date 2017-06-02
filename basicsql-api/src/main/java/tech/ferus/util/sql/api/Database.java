@@ -54,13 +54,6 @@ public interface Database {
     void configure();
 
     /**
-     * Gets whether or not the {@link Database} has been configured.
-     *
-     * @return true if the {@link Database} has been configured; false otherwise
-     */
-    boolean isConfigured();
-
-    /**
      * Gets the connection that has been configured by this {@link Database}.
      *
      * @return the connection to the configured {@link Database}
