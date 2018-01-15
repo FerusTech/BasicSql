@@ -1,0 +1,8 @@
+archivesBaseName = "basicsql-maria"
+description = "BasicSql implementation for MariaDB."
+
+dependencies {
+    compile project(":basicsql-core")
+
+    compile "org.mariadb.jdbc:mariadb-java-client:2.2.1"
+}

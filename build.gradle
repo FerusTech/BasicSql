@@ -151,6 +151,7 @@ def exportedProjects = [
         ":basicsql-api",
         ":basicsql-core",
         ":basicsql-mysql",
+        ":basicsql-maria",
         ":basicsql-h2",
         ":basicsql-sqlite"
 ]
